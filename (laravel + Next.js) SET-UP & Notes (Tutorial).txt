@@ -1,0 +1,95 @@
+(laravel + Next.js) SET-UP & Notes (Tutorial)
+base on this 
+https://www.youtube.com/watch?v=i270Os2MSqg&list=PL1auk-77TtuAzwQ7KffqhojAfl5WdXjUb&index=7
+
+Next.js is for the Frontend
+Laravel is for the Backend
+
+
+-create a folder "project_name" and inside that folder will contain the frontend(Next.js) and back end(Laravel)
+
+-inside the project_name folder create/install a Frontend(Next.js) in the cmd of the "project_name"
+-use these code
+npx create-next-app@latest
+name: frontend
+typescript: yes
+-in vscode terminal of the next.js(frontend) run these code
+laravel (to install laravel in next.js or to know if it is installed)
+npm run dev (this code is used to run the next.js)
+
+-after installing next.js(frontend)
+-install laravel named "api-backend" inside the project_name folder
+-use these code to install in cmd of the project_name
+laravel new api-backend
+starter kit: none
+wait...
+databse: mysql
+default migrations: yes (make sure the XAMMP is running)
+npm: yes / no (depends but I selected yes)
+-now it's finished
+-cmd the api-backend folder and run code .(vscode)
+-make sure the laravel is connected to the database
+-if migration is failed use this code to migrate
+php artisan migrate
+-create a model use this code
+php artisan make:model Product -m (it will create a model and migration)
+-in the product_migration put the required columns for the product table(id,....foreignId)
+-migrate again and check the XAMPP Database
+-in models/product.php insert this code
+protected $fillable{'id','?','?'}
+-after the model and migration are done run this code for the api
+php artisan install:api (it will also create a api.php route)
+pending migration: yes
+-check the database if the tokens table are created
+-check the terminal info or instructions
+-after successfully istalled api & tokens make sure to add this "use Laravel\Sanctum\HasApiTokens"
+-in the class User extend Auth... add HasApiTokens next to Notifiable
+-make an AuthController
+php aritsan make:controller AuthController
+-after i make the controller I create the register, login, profile, logout APIs
+-then i created the routes for (register, login, &etc.) in api.php
+-then i created the Controllers for (register, login,  etc.) in AuthController.php 
+-then i created the ProductController using this code
+php artisan make: ProductController --resource --api
+-then i create the controllers of ProductController
+-then i create the api routes for product contollers
+
+
+-then on the frontend , I installed these packages
+-bootstrap 
+-axios (used to communicate to the laravel api-backend)
+-react-hot-toast 
+-sweetalert2
+-js-cookie
+
+-check the pages.json to check the existing packages
+-use this code to install the packages (bootstrap & etc.)
+npm install bootstrap axios react-hot-toast sweetalert2 js-cookie
+-then check the package.json if it successfully installed
+-then i created a file .env.local (i didnt put in iside on any folder)
+-then i created a folder named "context"
+-then i created a folder for components named "components" 
+-then i created a folder inside the app folder named "auth" and i put a file page.tsx (so basically this is the page for the login/register)
+-then i created a folder inside the app folder named "dashboard" and i put a page.tsx (this page is accessible after login in) 
+-then inside the .env.local file i link my api-backend url http://127.0.0.1:8000/
+NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api
+-then i created these components
+Loader.tsx
+Navbar.tsx	
+-then i created a file inside the context folder named "AppProvider.tsx"
+-i clean the layout.tsx
+-i removed the global.css and fonts and i changed the title and descrition
+-then i put the bootstrap library in the layout.tsx
+-then i put this sample html code from this github repository to the next.js (navbar,loader,dashboard & etc.)
+https://github.com/owthub/laravel-12-next-js-app
+-then I import the Navbar in the layout.tsx then I placed it above the {children}
+import Navbar from "@/components/Navbar";
+-then I also imported the toasted libary in the layout.tsx and then I placed it above <Navbar />
+import { Toaster } from "react-hot-toast";
+
+-Then I started the auth.tsx
+-I used islogin function 
+-I created formdata variables & functions inside the auth.tsx
+-I created the login,register functions that will send send data/token to the api-backend(laravel)
+-after successfully logged in the user receives a token value
+1:54
